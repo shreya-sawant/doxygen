@@ -158,7 +158,7 @@ jobs:
         sudo apt upgrade
         sudo apt update
         sudo apt-get install texlive texlive-latex-recommended texlive-extra-utils texlive-latex-extra texlive-font-utils
-      if: startsWith(matrix.config.os,'ubuntu-')
+      if: startsWith(matrix.config.os,'ubuntu-') && !contains(matrix.config.os,'s390x')
 
     - name: Install LaTeX (MacOS)
       run: |
