@@ -148,17 +148,19 @@ jobs:
 
     - name: Install LaTeX (Linux)
       run: |
-        # workaround to avoid hanging on restarting the snapd after installing the firefox snap
-        sudo snap remove --purge firefox
-        sudo snap remove --purge snapd
-        sudo apt remove -y --purge snapd
-        sudo apt-mark hold snapd
-        # end workaround
+        if [[ "$(uname -m)" != "s390x" ]]; then
+           # workaround to avoid hanging on restarting the snapd after installing the firefox snap
+           sudo snap remove --purge firefox
+           sudo snap remove --purge snapd
+           sudo apt remove -y --purge snapd
+           sudo apt-mark hold snapd
+           # end workaround
+        fi
         sudo apt update --fix-missing
         sudo apt upgrade
         sudo apt update
         sudo apt-get install texlive texlive-latex-recommended texlive-extra-utils texlive-latex-extra texlive-font-utils
-      if: startsWith(matrix.config.os,'ubuntu-') && !contains(matrix.config.os,'s390x')
+      if: startsWith(matrix.config.os,'ubuntu-')
 
     - name: Install LaTeX (MacOS)
       run: |
@@ -290,7 +292,7 @@ jobs:
       uses: jdpurcell/install-qt-action@v5
       with:
         version: 6.8.*
-      if: matrix.config.os == 'ubuntu-24.04-arm'
+      if: matrix.config.os == 'ubuntu-24.04-arm' || matrix.config.os == 'ubuntu-24.04-s390x'
 
     - name: Install Qt 6.2
       uses: jdpurcell/install-qt-action@v5
@@ -302,7 +304,7 @@ jobs:
       uses: jdpurcell/install-qt-action@v5
       with:
         version: 5.*
-      if: startsWith(matrix.config.os,'macos-')!=true && matrix.config.os != 'ubuntu-24.04-arm'
+      if: startsWith(matrix.config.os,'macos-')!=true && matrix.config.os != 'ubuntu-24.04-arm' && matrix.config.os != 'ubuntu-24.04-s390x'
 
     - name: Check tool versions (Linux / MacOS)
       shell: bash
