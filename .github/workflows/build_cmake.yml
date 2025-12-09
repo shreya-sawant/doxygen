@@ -8,7 +8,7 @@ jobs:
       contents: write # to push pages branch (peaceiris/actions-gh-pages)
 
     name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.runs_on || matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -37,35 +37,6 @@ jobs:
         - {
             name: "Ubuntu Latest Clang Debug (Intel)",
             os: ubuntu-24.04,
-            build_type: "Debug", cc: "clang", cxx: "clang++",
-            build_gen: "Unix Makefiles",
-            cmake_extra_opts: "-Duse_libclang=YES -Dstatic_libclang=YES -Duse_libc++=NO"
-          }
-
-        - {
-            name: "Ubuntu Latest GCC Release (s390x)",
-            runs_on: s390x_24_04,
-            build_type: "Release", cc: "gcc", cxx: "g++",
-            build_gen: "Unix Makefiles",
-            cmake_extra_opts: "-Dbuild_search=YES -Dbuild_app=YES -Dbuild_parse=YES"
-          }
-        - {
-            name: "Ubuntu Latest GCC Debug (s390x)",
-            runs_on: s390x_24_04,
-            build_type: "Debug", cc: "gcc", cxx: "g++",
-            build_gen: "Unix Makefiles",
-            cmake_extra_opts: "-Dbuild_search=YES -Dbuild_app=YES -Dbuild_parse=YES"
-          }
-        - {
-            name: "Ubuntu Latest Clang Release (s390x)",
-            runs_on: s390x_24_04,
-            build_type: "Release", cc: "clang", cxx: "clang++",
-            build_gen: "Unix Makefiles",
-            cmake_extra_opts: "-Duse_libclang=YES -Dstatic_libclang=YES -Duse_libc++=NO"
-          }
-        - {
-            name: "Ubuntu Latest Clang Debug (s390x)",
-            runs_on: s390x_24_04,
             build_type: "Debug", cc: "clang", cxx: "clang++",
             build_gen: "Unix Makefiles",
             cmake_extra_opts: "-Duse_libclang=YES -Dstatic_libclang=YES -Duse_libc++=NO"
