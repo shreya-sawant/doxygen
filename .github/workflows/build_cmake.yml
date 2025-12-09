@@ -42,7 +42,7 @@ jobs:
             cmake_extra_opts: "-Duse_libclang=YES -Dstatic_libclang=YES -Duse_libc++=NO"
           }
 
-          - {
+        - {
             name: "Ubuntu Latest GCC Release (s390x)",
             runs_on: s390x_24_04,
             build_type: "Release", cc: "gcc", cxx: "g++",
